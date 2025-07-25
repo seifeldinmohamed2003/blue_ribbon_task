@@ -1,31 +1,23 @@
+// pages/members.tsx
 import { useState } from "react";
-import { members } from "../data/data";
+import data from "../data/data.json";
+import MemberList from "../components/memberlist";
+import AddMember from "../components/addmember";
 
 export default function MembersPage() {
-  const [newMember, setNewMember] = useState("");
-  const [memberList, setMemberList] = useState([...members]);
+  const [memberList, setMemberList] = useState<string[]>([...data.members]);
 
-  const handleAddMember = () => {
-    if (newMember && !memberList.includes(newMember)) {
-      setMemberList([...memberList, newMember]);
-      setNewMember("");
+  const handleAddMember = (member: string) => {
+    if (!memberList.includes(member)) {
+      setMemberList([...memberList, member]);
     }
   };
 
   return (
     <div style={{ padding: 20 }}>
       <h1>Members</h1>
-      <ul>
-        {memberList.map((member, i) => (
-          <li key={i}>{member}</li>
-        ))}
-      </ul>
-      <input
-        value={newMember}
-        onChange={(e) => setNewMember(e.target.value)}
-        placeholder="Add new member"
-      />
-      <button onClick={handleAddMember}>Add Member</button>
+      <MemberList members={memberList} />
+      <AddMember onAdd={handleAddMember} />
     </div>
   );
 }

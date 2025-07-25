@@ -2,11 +2,11 @@
 
 import { useRouter } from "next/router";
 
-const GoToSportsButton = () => {
+const GoToMembersButton = () => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push("/sports"); // Absolute route
+    router.push("/members"); // Absolute route
   };
 
   return (
@@ -21,9 +21,9 @@ const GoToSportsButton = () => {
         cursor: "pointer",
       }}
     >
-      Go to Sports Page
+      Go to Members Page
     </button>
   );
 };
 
-export default GoToSportsButton;
+export default GoToMembersButton;

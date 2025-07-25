@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { members, sports, subscriptions } from "../data/data";
+import data from "../data/data.json";
+
+const { members, sports, subscriptions } = data;
 
 export default function SubscriptionsPage() {
   const [selectedMember, setSelectedMember] = useState("");
   const [selectedSport, setSelectedSport] = useState("");
-  const [subscribed, setSubscribed] = useState({ ...subscriptions });
+  const [subscribed, setSubscribed] = useState<Record<string, string[]>>({ ...subscriptions });
 
   const handleSubscribe = () => {
     if (!selectedMember || !selectedSport) return;
@@ -26,7 +28,7 @@ export default function SubscriptionsPage() {
 
       <div>
         <label>Member: </label>
-        <select onChange={(e) => setSelectedMember(e.target.value)}>
+        <select onChange={(e) => setSelectedMember(e.target.value)} value={selectedMember}>
           <option value="">Select</option>
           {members.map((m, i) => (
             <option key={i} value={m}>
@@ -38,7 +40,7 @@ export default function SubscriptionsPage() {
 
       <div>
         <label>Sport: </label>
-        <select onChange={(e) => setSelectedSport(e.target.value)}>
+        <select onChange={(e) => setSelectedSport(e.target.value)} value={selectedSport}>
           <option value="">Select</option>
           {sports.map((s, i) => (
             <option key={i} value={s}>
@@ -48,10 +50,10 @@ export default function SubscriptionsPage() {
         </select>
       </div>
 
-      <button onClick={handleSubscribe}>Subscribe</button>
+      <button onClick={handleSubscribe} style={{ marginTop: 10 }}>Subscribe</button>
 
       {selectedMember && (
-        <div>
+        <div style={{ marginTop: 20 }}>
           <h3>{selectedMember} is subscribed to:</h3>
           <ul>
             {(subscribed[selectedMember] || []).map((sport, i) => (

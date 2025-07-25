@@ -1,0 +1,8 @@
+{
+  "sports": ["Football", "Tennis"],
+  "members": ["Seif", "Habiba"],
+  "subscriptions": {
+    "Seif": ["Football"],
+    "Habiba": []
+  }
+}

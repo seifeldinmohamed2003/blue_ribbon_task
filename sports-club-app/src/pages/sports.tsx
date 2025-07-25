@@ -1,33 +1,23 @@
 // pages/sports.tsx
-
 import { useState } from "react";
-import { sports } from "../data/data";
+import data from "../data/data.json";
+import SportList from "../components/sportlist";
+import AddSport from "../components/addsport";
 
 export default function SportsPage() {
-  const [newSport, setNewSport] = useState("");
-  const [sportList, setSportList] = useState([...sports]);
+  const [sportList, setSportList] = useState<string[]>([...data.sports]);
 
-  const handleAddSport = () => {
-    if (newSport && !sportList.includes(newSport)) {
-      setSportList([...sportList, newSport]);
-      setNewSport("");
+  const handleAddSport = (sport: string) => {
+    if (!sportList.includes(sport)) {
+      setSportList([...sportList, sport]);
     }
   };
 
   return (
     <div style={{ padding: 20 }}>
       <h1>Sports</h1>
-      <ul>
-        {sportList.map((sport, i) => (
-          <li key={i}>{sport}</li>
-        ))}
-      </ul>
-      <input
-        value={newSport}
-        onChange={(e) => setNewSport(e.target.value)}
-        placeholder="Add new sport"
-      />
-      <button onClick={handleAddSport}>Add Sport</button>
+      <SportList sports={sportList} />
+      <AddSport onAdd={handleAddSport} />
     </div>
   );
 }
