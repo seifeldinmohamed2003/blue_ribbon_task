@@ -1,5 +1,6 @@
 import GoToSportsButton from "../components/sportpagebutton";
 import GoToMembersButton from "../components/memberpagebutton";
+import GoToSubsButton from "../components/subspagebutton";
 
 export default function HomePage() {
   return (
@@ -7,6 +8,7 @@ export default function HomePage() {
       <h1>Welcome to the Sports Club</h1>
       <GoToSportsButton />
       <GoToMembersButton />
+      <GoToSubsButton />
     </div>
   );
 }
