@@ -1,10 +1,5 @@
-// pages/subscriptions.tsx
 import { useState } from "react";
 import data from "../data/data.json";
-import SelectMember from "../components/selectmember";
-import SelectSport from "../components/selectsport";
-import SubscribeButton from "../components/subscribebutton";
-import SubsList from "../components/subslist";
 
 const { members, sports, subscriptions } = data;
 
@@ -12,38 +7,72 @@ export default function SubscriptionsPage() {
   const [selectedMember, setSelectedMember] = useState("");
   const [selectedSport, setSelectedSport] = useState("");
   const [subscribed, setSubscribed] = useState<Record<string, string[]>>({ ...subscriptions });
+  const [error, setError] = useState(""); // ← NEW
 
   const handleSubscribe = () => {
     if (!selectedMember || !selectedSport) return;
-    if (subscribed[selectedMember]?.includes(selectedSport)) return;
 
-    const updated = {
-      ...subscribed,
-      [selectedMember]: [...(subscribed[selectedMember] || []), selectedSport],
-    };
-    setSubscribed(updated);
+    const alreadySubscribed = subscribed[selectedMember]?.includes(selectedSport);
+
+    if (alreadySubscribed) {
+      setError(`${selectedMember} is already subscribed to ${selectedSport}`); // ← Show error
+    } else {
+      const updated = {
+        ...subscribed,
+        [selectedMember]: [...(subscribed[selectedMember] || []), selectedSport],
+      };
+      setSubscribed(updated);
+      setError(""); // ← Clear error
+    }
   };
 
   return (
     <div style={{ padding: 20 }}>
       <h1>Subscribe Members</h1>
 
-      <SelectMember
-        members={members}
-        selectedMember={selectedMember}
-        onChange={setSelectedMember}
-      />
+      <div>
+        <label>Member: </label>
+        <select onChange={(e) => setSelectedMember(e.target.value)} value={selectedMember}>
+          <option value="">Select</option>
+          {members.map((m, i) => (
+            <option key={i} value={m}>
+              {m}
+            </option>
+          ))}
+        </select>
+      </div>
 
-      <SelectSport
-        sports={sports}
-        selectedSport={selectedSport}
-        onChange={setSelectedSport}
-      />
+      <div>
+        <label>Sport: </label>
+        <select onChange={(e) => setSelectedSport(e.target.value)} value={selectedSport}>
+          <option value="">Select</option>
+          {sports.map((s, i) => (
+            <option key={i} value={s}>
+              {s}
+            </option>
+          ))}
+        </select>
+      </div>
 
-      <SubscribeButton onClick={handleSubscribe} />
+      <button onClick={handleSubscribe} style={{ marginTop: 10 }}>
+        Subscribe
+      </button>
+
+      {error && (
+        <div style={{ color: "red", marginTop: 10 }}>
+          <strong>{error}</strong>
+        </div>
+      )}
 
       {selectedMember && (
-        <SubsList member={selectedMember} subscriptions={subscribed} />
+        <div style={{ marginTop: 20 }}>
+          <h3>{selectedMember} is subscribed to:</h3>
+          <ul>
+            {(subscribed[selectedMember] || []).map((sport, i) => (
+              <li key={i}>{sport}</li>
+            ))}
+          </ul>
+        </div>
       )}
     </div>
   );

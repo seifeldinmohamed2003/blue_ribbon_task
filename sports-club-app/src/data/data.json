@@ -1,8 +1,9 @@
 {
-  "sports": ["Football", "Tennis"],
-  "members": ["Seif", "Habiba"],
+  "sports": ["Football", "Tennis", "MMA", "Basketball"],
+  "members": ["Seif", "Habiba","Hamada"],
   "subscriptions": {
-    "Seif": ["Football"],
-    "Habiba": []
+    "Seif": ["MMA"],
+    "Habiba": ["Tennis"],
+    "Hamada" : [ "Basketball"]
   }
 }

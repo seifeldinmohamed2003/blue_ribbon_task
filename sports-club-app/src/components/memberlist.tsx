@@ -1,17 +1,14 @@
-// components/MemberList.tsx
-
+// components/memberlist.tsx
 type Props = {
   members: string[];
 };
 
-const MemberList = ({ members }: Props) => {
+export default function MemberList({ members }: Props) {
   return (
-    <ul>
+    <ul style={{ textAlign: "left", marginBottom: "1rem" }}>
       {members.map((member, i) => (
         <li key={i}>{member}</li>
       ))}
     </ul>
   );
-};
-
-export default MemberList;
+}
