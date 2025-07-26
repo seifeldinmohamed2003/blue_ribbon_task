@@ -14,6 +14,11 @@ pnpm dev
 bun dev
 ```
 
+This is my frontend task submission for Blue Ribbon, it is a simple frontend-only web application for a sports club , including functionalities such as viewing and adding both members and sports respectively , it also has the functionality for viewing which members are subscribed to which sports as well as allow members to subscribe to more sports. Functionalities and pages are divided into multiple react components.
+
+
+
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
